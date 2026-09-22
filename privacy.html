@@ -4,8 +4,10 @@
   Pages repo; edit here, then copy it there. Deliberately self-contained: no fonts,
   scripts or images from anywhere else, so opening the policy contacts nobody.
   Every claim below was checked against the release build on 2026-09-22 (merged
-  manifest, dependencies, backup rules) — re-check them before changing the app's
-  permissions, libraries or backup behaviour.
+  manifest, dependencies, backup rules) and against the APK Google Play delivered,
+  which adds Play's installer check (com.pairip, CHECK_LICENSE) but no INTERNET
+  permission. Re-check before changing the app's permissions, libraries or backup
+  behaviour, or turning Play's automatic protection off.
 -->
 <html lang="en">
 <head>
@@ -92,14 +94,21 @@
     <li>groups you create for shared expenses, and how each expense is split.</li>
   </ul>
   <p>This is kept in a database in the app’s private storage on your device. Kaasu does not
-  read your contacts, location, photos, messages or anything else on your phone, and it asks
-  for no permissions.</p>
+  read your contacts, location, photos, messages or anything else on your phone, and it never
+  asks you for a permission.</p>
 
   <h2>What I collect</h2>
-  <p><strong>Nothing.</strong> Kaasu has no servers and no user accounts, and it contains no
-  analytics, crash reporting, advertising or other third-party code that could collect data.
-  Because the app has no internet permission, Android itself stops it from connecting to the
-  internet.</p>
+  <p><strong>Nothing.</strong> Kaasu has no servers and no user accounts, and I have added no
+  analytics, crash reporting, advertising or other third-party code to it. Because the app has
+  no internet permission, Android itself stops it from connecting to the internet.</p>
+
+  <h2>Google Play’s installer check</h2>
+  <p>The copy of Kaasu you install from Google Play includes a check that Google Play adds to
+  protect apps from being copied and redistributed. When the app opens, it asks the Play Store
+  app on your phone to confirm that Kaasu was installed from Google Play. The check is part of
+  Google Play, not something I wrote or control; it concerns the installation, not the records
+  you keep in Kaasu, and it is covered by
+  <a href="https://policies.google.com/privacy">Google’s Privacy Policy</a>.</p>
 
   <h2>Sharing and selling</h2>
   <p>I do not sell, share or transfer your data, because I never receive it.</p>
