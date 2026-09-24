@@ -3,17 +3,22 @@
   Kaasu privacy policy. Source of truth for the page served from the public GitHub
   Pages repo; edit here, then copy it there. Deliberately self-contained: no fonts,
   scripts or images from anywhere else, so opening the policy contacts nobody.
-  Every claim below was checked against the release build on 2026-09-23 (merged
-  manifest, dependencies, backup rules) and against the APK Google Play delivered,
-  which adds Play's installer check (com.pairip, CHECK_LICENSE) but no INTERNET
-  permission. Re-check before changing the app's permissions, libraries or backup
+  Every claim below was checked against the merged manifest, the dependencies and the
+  backup rules. Re-check before changing the app's permissions, libraries or backup
   behaviour, or turning Play's automatic protection off.
 
-  2026-09-23, for 1.1.0: Kaasu now writes its own backup files to a folder the user
-  picks, and android:allowBackup is FALSE, so Android no longer copies Kaasu's data
-  to a Google account. Both statements below depend on that attribute — if it is ever
-  turned back on (see RELEASE_PLAN.md), the Backups section has to change with it,
-  and so does the Data safety form.
+  2026-09-23, for 1.1.0: Kaasu writes its own backup files to a folder the user picks,
+  and android:allowBackup is FALSE, so Android does not copy Kaasu's data to a Google
+  account. If that attribute is ever turned back on (see RELEASE_PLAN.md), the Backups
+  section changes with it, and so does the Data safety form.
+
+  2026-09-24, for 1.2.0: the app now declares INTERNET, for optional Google Drive
+  backup. The old claim that Kaasu "cannot" send data — true by construction while it
+  had no such permission — is gone, replaced by a claim about the default: no network
+  connection happens unless the user connects Drive. That is enforced by there being no
+  other network code in the app, so it stays true only as long as that remains so.
+  Scope is drive.file, the narrowest Drive scope, which sees only files the app created.
+  The Play Data safety form must declare this transfer.
 -->
 <html lang="en">
 <head>
@@ -83,8 +88,9 @@
 
   <div class="summary">
     <p><strong>In short:</strong> everything you enter in Kaasu stays on your phone. The app
-    has no account, no ads and no analytics, and it does not have permission to use the
-    internet, so it cannot send your data anywhere. I never see it.</p>
+    has no account of its own, no ads and no analytics, and I never see your data. Kaasu makes
+    no connection to the internet at all unless <em>you</em> choose to connect Google Drive for
+    backups &mdash; and then it writes only to your own Drive, which only you can read.</p>
   </div>
 
   <h2>Who this policy is from</h2>
@@ -100,13 +106,16 @@
     <li>groups you create for shared expenses, and how each expense is split.</li>
   </ul>
   <p>This is kept in a database in the app’s private storage on your device. Kaasu does not
-  read your contacts, location, photos, messages or anything else on your phone, and it never
-  asks you for a permission.</p>
+  read your contacts, location, photos, messages or anything else on your phone. The only
+  permission it declares is internet access, used solely for the optional Google Drive backup
+  described below; it asks for no other permission.</p>
 
   <h2>What I collect</h2>
   <p><strong>Nothing.</strong> Kaasu has no servers and no user accounts, and I have added no
-  analytics, crash reporting, advertising or other third-party code to it. Because the app has
-  no internet permission, Android itself stops it from connecting to the internet.</p>
+  analytics, crash reporting or advertising code to it. There is nowhere for your data to be
+  sent to me, because no such place exists. If you connect Google Drive, your backups go
+  directly from your phone to <em>your</em> Google account; they never pass through me, and I
+  cannot read them.</p>
 
   <h2>Google Play’s installer check</h2>
   <p>The copy of Kaasu you install from Google Play includes a check that Google Play adds to
@@ -120,16 +129,25 @@
   <p>I do not sell, share or transfer your data, because I never receive it.</p>
 
   <h2>Backups</h2>
-  <p>Kaasu can save a backup of your records as a file, into a folder you choose on your
-  phone. It does this on its own about once a day, and whenever you ask it to in
-  <em>Settings → Backup</em>. Those files stay on your device unless you move or share them
-  yourself — Kaasu never uploads them anywhere, and cannot, because it has no internet
-  permission. You can open, copy or delete them like any other file.</p>
+  <p><strong>On your phone.</strong> Kaasu saves a backup of your records as a file, into a
+  folder you choose. It does this on its own about once a day, and whenever you ask it to in
+  <em>Settings → Local backup</em>. Those files stay on your device unless you move or share
+  them yourself, and you can open, copy or delete them like any other file.</p>
+
+  <p><strong>In your Google Drive, only if you turn it on.</strong> Under <em>Settings →
+  Remote backup</em> you can connect your Google account so a copy of each backup is also
+  saved to a folder named “Kaasu” in your own Drive. This is off until you choose it, and you
+  can disconnect at any time. Kaasu requests the narrowest Drive permission Google offers
+  (<code>drive.file</code>), which lets it see only the files it created itself &mdash; it
+  cannot read anything else in your Drive. The files go straight from your phone to your
+  Google account. I have no access to them, and you can delete them from Drive yourself or
+  revoke access entirely at
+  <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</p>
 
   <p>Android also has a backup feature of its own, run by Google rather than by Kaasu, which
-  copies some apps’ data to your Google account. <strong>Kaasu currently has this switched
-  off</strong>, so Android does not include Kaasu’s records in that backup. The only backups
-  of your records are the files described above, in the folder you picked.</p>
+  copies some apps’ data to your Google account automatically. <strong>Kaasu has this switched
+  off</strong>, so Android does not include Kaasu’s records in it. The only backups of your
+  records are the ones described above, which you set up yourself.</p>
 
   <h2>Deleting your data</h2>
   <ul>
@@ -138,6 +156,9 @@
     the app. Both delete all Kaasu data from the device.</li>
     <li>Backup files are not removed by uninstalling — that is the point of them. Delete them
     yourself from the folder you chose, using any file manager.</li>
+    <li>If you connected Google Drive, delete the “Kaasu” folder from your Drive, and revoke
+    Kaasu’s access at
+    <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</li>
   </ul>
 
   <h2>Security</h2>
