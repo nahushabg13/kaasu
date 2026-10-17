@@ -23,6 +23,13 @@
   2026-09-29, for 1.2.4: Google Play's in-app update library (app-update-ktx) added. It
   talks to the Play Store app on the device, not to the network from Kaasu's own process,
   so "no connection unless you connect Drive" still describes Kaasu's own code.
+
+  2026-10-17, for 1.4.0: Detect payments (beta), off unless turned on. A notification
+  listener (PaymentListenerService) reads bank SMS notifications; POST_NOTIFICATIONS is
+  declared for its reminder; there is NO READ_SMS. What is kept is DetectRepository's
+  parsed fields (AlertEntity, DetectedItemEntity), never the message text: the release
+  build has no raw notification log (that is Kaasu Detect's samples.jsonl, never on Play).
+  The "Detect payments" section and the store list must change if any of that does.
 -->
 <html lang="en">
 <head>
@@ -88,7 +95,7 @@
 <body>
 <main>
   <h1>Kaasu Privacy Policy</h1>
-  <p class="meta">Effective 29 September 2026</p>
+  <p class="meta">Effective 17 October 2026</p>
 
   <div class="summary">
     <p><strong>In short:</strong> everything you enter in Kaasu stays on your phone. The app
@@ -103,16 +110,37 @@
   <code>com.nahushabg.expenses</code>. This policy covers the Kaasu app only.</p>
 
   <h2>What the app stores</h2>
-  <p>Only what you type into it:</p>
+  <p>What you type into it, and, only if you turn on <em>Detect payments</em>, what it finds
+  in your bank’s text messages:</p>
   <ul>
     <li>amounts, dates and notes for your income and expenses;</li>
     <li>the categories you use, with their names and colours;</li>
-    <li>groups you create for shared expenses, and how each expense is split.</li>
+    <li>groups you create for shared expenses, and how each expense is split;</li>
+    <li>with Detect payments on: for each transaction your bank texts you about, whether
+    money went out or came in, the amount, the date and time, the bank, the last digits of
+    the account or card (and of any other account the message names), the payee or payer
+    as the bank wrote it, the bank’s reference number, and the balance when the bank printed
+    one.</li>
   </ul>
-  <p>This is kept in a database in the app’s private storage on your device. Kaasu does not
-  read your contacts, location, photos, messages or anything else on your phone. The only
-  permission it declares is internet access, used solely for the optional Google Drive backup
-  described below; it asks for no other permission.</p>
+  <p>This is kept in the app’s private storage on your device. Kaasu does not read your
+  contacts, location, photos or files, and never asks for permission to read your SMS. The
+  permissions it declares are internet access, used solely for the optional Google Drive
+  backup described below; on Android 13 and later, permission to show notifications, used only
+  for the Detect payments reminder; and three that Android grants without asking, which the
+  scheduling library behind that reminder needs to keep its schedule (to start again after
+  your phone restarts, to keep the phone awake for a moment, and to see whether it is
+  online).</p>
+
+  <h2>Detect payments (optional)</h2>
+  <p>Detect payments is off unless you turn it on. It adds payments from your bank’s SMS for
+  you, and works only after you turn it on in the app and then give Kaasu <em>notification
+  access</em> in Android’s settings. Android describes that access as being able to read all
+  your notifications. Kaasu uses it only for notifications from your SMS app whose sender is a
+  bank, and only for messages that report a transaction; every other notification is ignored
+  as it arrives and never stored. The text of a bank message is not kept, only the details
+  listed above. Nothing it finds leaves your phone, except inside the backups you choose to
+  make (below). You can turn it off in the app at any time, and remove notification access in
+  Android’s settings.</p>
 
   <h2>What I collect</h2>
   <p><strong>Nothing.</strong> Kaasu has no servers and no user accounts, and I have added no
@@ -156,6 +184,12 @@
   copies some apps’ data to your Google account automatically. <strong>Kaasu has this switched
   off</strong>, so Android does not include Kaasu’s records in it. The only backups of your
   records are the ones described above, which you set up yourself.</p>
+
+  <h2>Exports</h2>
+  <p>On the Transactions screen, <em>Export</em> saves all your records as a spreadsheet
+  (Excel or CSV) in your phone’s Downloads folder, only when you ask. Like any file there,
+  other apps you have allowed to read your files can see it; it goes nowhere else unless you
+  share it yourself.</p>
 
   <h2>Deleting your data</h2>
   <ul>
